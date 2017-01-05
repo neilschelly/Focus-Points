@@ -30,7 +30,7 @@ local myLogger = LrLogger( 'libraryLogger' )
 myLogger:enable( "logfile" )
 
 isDebug = false
-isLog = false
+isLog = true
 
 exiftool = LrPathUtils.child( _PLUGIN.path, "bin" )
 exiftool = LrPathUtils.child(exiftool, "exiftool")
@@ -45,8 +45,10 @@ function getExifCmd(targetPhoto)
   local path = targetPhoto:getRawMetadata("path")
   local metaDataFile = LrPathUtils.removeExtension(path)
   metaDataFile = metaDataFile .. "-metadata.txt"
+  log("writing metadata file to: " .. metaDataFile)
   
   local cmd = "'"..exiftool .. "' -a -u -g1 '" .. path .. "' > '" .. metaDataFile .. "'";
+  log("exif command: " .. cmd)
   return cmd, metaDataFile
   
 end
@@ -55,7 +57,8 @@ function readMetaData(targetPhoto)
   local cmd, metaDataFile = getExifCmd(targetPhoto)
   LrTasks.execute(cmd)
   local fileInfo = LrFileUtils.readFile(metaDataFile)
-  LrFileUtils.delete(metaDataFile)
+  --LrFileUtils.delete(metaDataFile)
+  log("not deleting metadata file at: " .. metaDataFile)
   return fileInfo
 end
 

@@ -80,7 +80,6 @@ function DefaultPointRenderer.createView(targetPhoto, photoDisplayW, photoDispla
   local yy = math.sin(radRotation) * (x - orgPhotoW/2) + math.cos(radRotation) * (y - orgPhotoH/2) + orgPhotoH/2
 
   -- xrot=cos(θ)⋅(x−cx)−sin(θ)⋅(y−cy)+cx
-  log( "x: " .. x .. ", xx: " .. xx .. ", y: " .. y .. ", yy: " .. yy)
   local deltaX = xx - x
   local deltaY = yy - y
 

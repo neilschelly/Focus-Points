@@ -32,6 +32,7 @@ local function showDialog()
       
     local catalog = LrApplication.activeCatalog()
     local targetPhoto = catalog:getTargetPhoto()
+    log("starting plugin")
     
     LrTasks.startAsyncTask(function(context) 
       if (targetPhoto:checkPhotoAvailability() == false) then

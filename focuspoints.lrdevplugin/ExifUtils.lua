@@ -26,8 +26,10 @@ function ExifUtils.getExifCmd(targetPhoto)
   local path = targetPhoto:getRawMetadata("path")
   local metaDataFile = LrPathUtils.removeExtension(path)
   metaDataFile = metaDataFile .. "-metadata.txt"
+  log("writing metadata file to: " .. metaDataFile)
   
   local cmd = exiftool .. " -a -u -g1 '" .. path .. "' > '" .. metaDataFile .. "'";
+  log("exif command: " .. cmd)
   return cmd, metaDataFile
   
 end
@@ -36,7 +38,8 @@ function ExifUtils.readMetaData(targetPhoto)
   local cmd, metaDataFile = ExifUtils.getExifCmd(targetPhoto)
   LrTasks.execute(cmd)
   local fileInfo = LrFileUtils.readFile(metaDataFile)
-  LrFileUtils.delete(metaDataFile)
+  --LrFileUtils.delete(metaDataFile)
+  log("not deleting metadata file at: " .. metaDataFile)
   return fileInfo
 end
 
