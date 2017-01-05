@@ -39,6 +39,23 @@ The best way I found to do this was to set up a ruler/tape measure, get out my c
 
 If 2 or more cameras share a common points mapping, then PointsRendererFactory will need to be updated to know this. For example, the D7200 and D7100 could share a common focus points map (I don't know). If they do, PointsRendererFactory can be updated in code. I would prefer not see copying and pasting of focus point files such as "nikon d7200.txt" and "nikon d7100.txt" containing the exact same info. 
 
+Canon cameras, such as at least the Canon 60D, will have the coordinates of all AF points in EXIF like:
+```
+$ exiftool IMG_xxxx.CR2 |grep AF
+Num AF Points                   : 9
+Valid AF Points                 : 9
+AF Image Width                  : 5184
+AF Image Height                 : 3456
+AF Area Widths                  : 108 88 88 88 129 88 88 88 108
+AF Area Heights                 : 86 107 107 107 131 107 107 107 86
+AF Area X Positions             : 0 -860 860 -1368 0 1368 -860 860 0
+AF Area Y Positions             : 743 393 393 0 0 0 -393 -393 -743
+AF Points In Focus              : 8
+AF Points Selected              : 8
+```
+This camera has 9 AF points, numbered from 0 to 8. They are in a diamond shape, numbered top-to-bottom, left-to-right, so that 0 is the top, 1 and 2 are the next row, 3 and 4 and 5 are the middle row, 6 and 7 are the next row, and 8 is the bottom point.
+
+The widths/heights of the various AF areas are in the "AF Area Widths" and "AF Area Widths" fields in that order. The positions are all relative to the center point, which can be found by halving the "AF Image Width" and "AF Image Height" fields.
 
 Known Issues
 --------
@@ -48,7 +65,7 @@ the focus point image can not be the exact size as your cameras. It can only est
 track if you have rotated the photo in development. As such, if the photo was rotated, the focus point could be 
 wrong. The code attempts to resolve this, but it's only an attempt. 
 3. Not compatible if photo was edited in Photoshop. If the photo has been edited in Photoshop, the metadata in the photo telling the focus point was deleted. Perhaps in the future I can update the code to look for the original file and get the focus point from that. 
-
+4. Canon cameras can have different widths and heights for different focus areas.
 
 TODOs
 --------
