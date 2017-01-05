@@ -1,0 +1,27 @@
+focusPointDimens = {80, 80}
+
+-- 1st column
+-- size: 60x90
+B1 = {1220, 1730}
+
+-- 2nd column
+-- size: 60x90
+A1 = {1734, 1350}
+B2 = {1734, 2140}
+
+-- 3rd column
+-- size: 90x60
+A2 = {2592, 980}
+-- size: 100x100
+B3 = {2592, 1727}
+-- size: 90x60
+C3 = {2592, 2474}
+
+-- 4th column
+-- size: 60x90
+A3 = {3450, 1350}
+B4 = {3450, 2140}
+
+-- 5th column
+-- size: 60x90
+A4 = {3964, 1730}
